@@ -26,37 +26,25 @@ Alternately, you can remove 2 to get the strictly increasing sequence [1, 3].
 ***/
 
 func solution(sequence []int) bool {
-	count := 0
-	success := 0
-	for sweepNum := 0; sweepNum < len(sequence); sweepNum++ {
-		for i := 0; i < len(sequence)-1; i++ {
-			if sequence[i] >= sequence[i+1] { // {1, 2, 5, 3, 5}
-				count += 1
-				if success > 0 {
-					if sequence[i] >= sequence[i+1] {
-						// Delete any element that is greater than it's successor
-						sequence = append(sequence[:i], sequence[i+1:]...)
-						// reset sweepNum back to 0
-						sweepNum = 0
-						break
-					}
-					// Delete any element that is greater than it's successor
-					sequence = append(sequence[:i+1], sequence[i+1+1:]...)
-					// reset sweepNum back to 0
-					sweepNum = 0
-					break
-				}
-				// Delete any element that is greater than it's successor
-				sequence = append(sequence[:i], sequence[i+1:]...)
-				// reset sweepNum back to 0
-				sweepNum = 0
-				break
+	removed := false
+
+	for i := 1; i < len(sequence); i++ {
+		// check if the current element (sequence[i]) is less than or equal to the previous element (sequence[i-1])
+		if sequence[i] <= sequence[i-1] {
+			if removed {
+				return false
 			}
-			success++
+			removed = true
+
+			// Check if removing the current element or the previous one results in a strictly increasing sequence
+			if i == 1 || sequence[i] > sequence[i-2] {
+				sequence[i-1] = sequence[i]
+			} else {
+				sequence[i] = sequence[i-1]
+			}
 		}
 	}
-	if count > 1 {
-		return false
-	}
+
 	return true
 }
+
