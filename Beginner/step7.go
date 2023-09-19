@@ -48,3 +48,5 @@ func solution(sequence []int) bool {
 	return true
 }
 
+// https://go.dev/play/p/cz5zaNBgNCb
+
