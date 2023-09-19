@@ -29,6 +29,8 @@ func solution(statues []int) int {
 			}
 		}
 	}
+
+	return count
 }
 
 func bubbleSortInt(statues []int) []int {
@@ -43,3 +45,5 @@ func bubbleSortInt(statues []int) []int {
 
 	return statues
 }
+
+// https://go.dev/play/p/wdTWMqAncrC
